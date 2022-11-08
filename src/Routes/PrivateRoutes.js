@@ -11,10 +11,10 @@ const PrivateRoutes = ({children}) => {
         return <Loader></Loader>
     }
     
-    if(user & user?.uid){
+    if(user && user?.uid){
         return children;
     }
-    return <Navigate to="/login" state={{ from: location }} replace></Navigate>
+    return <Navigate to="/signin" state={{ from: location }} replace></Navigate>
 };
 
 export default PrivateRoutes;

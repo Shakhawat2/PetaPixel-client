@@ -1,10 +1,22 @@
 import React, { useContext, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../Contexts/UserContext";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate()
+    const signOut = () =>{
+        logOut()
+        .then(() => {
+            toast.success("Sign-out successful")
+            navigate('/')
+          }).catch((error) => {
+            // An error happened.
+            toast.error(error.message)
+          });
+    }
 
     return (
         <div className="px-4 py-5 shadow-xl mx-auto sm:max-w-full md:max-w-full lg:max-w-screen md:px-24 lg:px-8">
@@ -111,7 +123,7 @@ const Navbar = () => {
                                             </Link>
                                         </li>
                                         <li><Link>Settings</Link></li>
-                                        <li><Link onClick={() => logOut()}>Logout</Link></li>
+                                        <li><Link onClick={() => signOut()}>Logout</Link></li>
                                     </ul>
                                 </div>
                             </li>
@@ -274,7 +286,7 @@ const Navbar = () => {
                                                                     </Link>
                                                                 </li>
                                                                 <li><Link>Settings</Link></li>
-                                                                <li><Link onClick={() => logOut()}>Logout</Link></li>
+                                                                <li><Link onClick={() => signOut()}>Logout</Link></li>
                                                             </ul>
                                                         </div>
                                                     </li>

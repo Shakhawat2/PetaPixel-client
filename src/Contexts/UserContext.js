@@ -29,13 +29,7 @@ const UserContext = ({ children }) => {
     //03. Log Out
     const logOut = () => {
         setLoading(true);
-        return signOut(auth).then(() => {
-            toast.success("Sign-out successful")
-            
-          }).catch((error) => {
-            // An error happened.
-            toast.error(error.message)
-          });
+        return signOut(auth)
           
     }
     //04. update user 
