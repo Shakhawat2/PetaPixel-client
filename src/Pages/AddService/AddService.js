@@ -1,13 +1,31 @@
 import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../Contexts/UserContext';
 
 const AddService = () => {
     const {user} = useContext(AuthContext);
     const [service, setService] = useState({});
-
+    const navigate = useNavigate();
     const handleAddService = (e) =>{
         e.preventDefault();
-        console.log(service);
+        
+        fetch("http://localhost:5000/services", {
+            method : "post",
+            headers : {
+                'content-type' : 'application/json'
+            },
+            body : JSON.stringify(service)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data?.insertedId){
+                toast.success('Added a new Service')
+                navigate("/services")
+                e.target.reset();
+            }
+        })
+        .catch(err => toast.error(err?.message))
     }
     const handleInput = (e) =>{
         const field = e.target.name;
