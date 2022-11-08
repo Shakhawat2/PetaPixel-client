@@ -6,6 +6,10 @@ import login from '../assets/login.json'
 const Login = () => {
     const handleLogin = (e) =>{
         e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(email, password);
     }
     return (
         <div>
@@ -44,9 +48,9 @@ const Login = () => {
                                 {/* <!-- Email input --> */}
                                 <div className="mb-6">
                                     <input
-                                        type="text"
+                                        type="email"
                                         className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                        id="exampleFormControlInput2"
+                                        name='email'
                                         placeholder="Email address"
                                     />
                                 </div>
@@ -56,7 +60,7 @@ const Login = () => {
                                     <input
                                         type="password"
                                         className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                        id="exampleFormControlInput2"
+                                        name='password'
                                         placeholder="Password"
                                     />
                                 </div>
