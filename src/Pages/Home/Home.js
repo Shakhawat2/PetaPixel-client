@@ -1,9 +1,15 @@
 import React from 'react';
+import Banner from './Shared/Banner';
+import Feature from './Shared/Feature';
+import Service from './Shared/Service';
+import Team from './Shared/Team';
 
 const Home = () => {
     return (
         <div>
-            This is home
+            <Banner></Banner>
+            <Service></Service>
+            <Feature></Feature>
         </div>
     );
 };
