@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Lottie from "lottie-react";
 import register from '../assets/register.json'
+import { AuthContext } from '../../Contexts/UserContext';
 
 const Register = () => {
+    const {createUserWithEmail} = useContext(AuthContext);
     const handleRegister = (e) =>{
         e.preventDefault();
         const form = e.target;
