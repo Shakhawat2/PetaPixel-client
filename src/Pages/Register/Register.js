@@ -1,19 +1,56 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Lottie from "lottie-react";
 import register from '../assets/register.json'
 import { AuthContext } from '../../Contexts/UserContext';
+import { useTitle } from '../../Hooks/UseTitle';
+import { toast } from 'react-toastify';
 
 const Register = () => {
-    const {createUserWithEmail} = useContext(AuthContext);
-    const handleRegister = (e) =>{
+    const { createUserWithEmail, updateUser , signInWithGoogle} = useContext(AuthContext);
+    useTitle("Register")
+    const navigate = useNavigate();
+    let location = useLocation();
+    let from = location.state?.from?.pathname || "/";
+    const [accept, setAccept] = useState(true);
+
+    const handleRegister = (e) => {
         e.preventDefault();
         const form = e.target;
         const name = form.name.value;
         const photo = form.photo.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(name, photo, email, password);
+
+        //create account 
+        createUserWithEmail(email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                updateUser(name, photo);
+                toast('Registered Successful');
+                navigate(from, { replace: true });
+                form.reset();
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                toast(errorMessage)
+            });
+
+    }
+
+    const handleGoogle = () => {
+        signInWithGoogle()
+        .then((result) => {
+            const user = result.user;
+            toast.success("Successfully Log In");
+            navigate(from, { replace: true });
+        }).catch((error) => {
+            // Handle Errors here.
+            const errorMessage = error.message;
+            toast.error(errorMessage);
+        });
+       
     }
     return (
         <div >
@@ -25,13 +62,14 @@ const Register = () => {
                         <div
                             className="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0"
                         >
-                            <Lottie animationData={register} loop={true} className='w-full h-[500px]'/>
+                            <Lottie animationData={register} loop={true} className='w-full h-[500px]' />
                         </div>
                         <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
                             <form onSubmit={(e) => handleRegister(e)}>
                                 <div className="flex flex-row items-center justify-center lg:justify-start">
                                     <p className="text-lg mb-0 mr-4">Sign in with</p>
                                     <button
+                                        onClick={() => handleGoogle()}
                                         type="button"
                                         data-mdb-ripple="true"
                                         data-mdb-ripple-color="light"
@@ -55,10 +93,10 @@ const Register = () => {
                                         name='name'
                                         placeholder="Enter Your Name"
                                         required
-                                        />
+                                    />
                                 </div>
                                 {/* photo url  */}
-                                
+
                                 <div className="mb-6">
                                     <input
                                         type="text"
@@ -93,23 +131,23 @@ const Register = () => {
                                 <div className="flex justify-between items-center mb-6">
                                     <div className="form-group form-check">
                                         <input
+                                            onClick={() => setAccept(!accept)}
                                             type="checkbox"
-                                            className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                                            id="exampleCheck2"
+                                            className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"       
                                         />
                                         <label className="form-check-label inline-block text-gray-800" htmlFor="exampleCheck2"
-                                        >Remember me</label
+                                        >Accept Terms & Conditions</label
                                         >
                                     </div>
-                                    <Link  className="text-gray-800">Forgot password?</Link>
                                 </div>
 
                                 <div className="text-center lg:text-left">
                                     <button
                                         type="submit"
                                         className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                                        disabled={accept}
                                     >
-                                        Register
+                                        {accept ? "Disabled" : "Register"} 
                                     </button>
                                     <p className="text-sm font-semibold mt-2 pt-1 mb-0">
                                         Already have an account?

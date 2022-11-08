@@ -1,16 +1,59 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Lottie from "lottie-react";
 import login from '../assets/login.json'
+import { useTitle } from '../../Hooks/UseTitle';
+import { AuthContext } from '../../Contexts/UserContext';
+import { toast } from 'react-toastify';
 
 const Login = () => {
-    const handleLogin = (e) =>{
+    useTitle("Login")
+    const { logIn, chagePassword, signInWithGoogle } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+    let location = useLocation();
+    let from = location.state?.from?.pathname || "/";
+
+    const [currentEmail, setEmail] = useState('');
+    const handleLogin = (e) => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password);
+
+        logIn(email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                toast.success("Log In Successfully");
+                navigate(from, { replace: true });
+                form.reset();
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                toast.error(errorMessage)
+            });
+
     }
+    const handleGoogle = () => {
+        signInWithGoogle()
+            .then((result) => {
+                const user = result.user;
+                toast.success("Successfully Log In");
+                navigate(from, { replace: true });
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorMessage = error.message;
+                toast.error(errorMessage);
+            });
+
+    }
+
+    const forgotPassword = () => {
+        chagePassword(currentEmail)
+    }
+
     return (
         <div>
             <section className="h-screen">
@@ -21,7 +64,7 @@ const Login = () => {
                         <div
                             className="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0"
                         >
-                            <Lottie animationData={login} loop={true} className='w-full h-[500px]'/>
+                            <Lottie animationData={login} loop={true} className='w-full h-[500px]' />
 
                         </div>
                         <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
@@ -29,6 +72,7 @@ const Login = () => {
                                 <div className="flex flex-row items-center justify-center lg:justify-start">
                                     <p className="text-lg mb-0 mr-4">Sign in with</p>
                                     <button
+                                        onClick={() => handleGoogle()}
                                         type="button"
                                         data-mdb-ripple="true"
                                         data-mdb-ripple-color="light"
@@ -36,7 +80,7 @@ const Login = () => {
                                     >
                                         {/* <!-- google --> */}
                                         Google
-                                    </button>                   
+                                    </button>
                                 </div>
 
                                 <div
@@ -48,10 +92,12 @@ const Login = () => {
                                 {/* <!-- Email input --> */}
                                 <div className="mb-6">
                                     <input
+                                        onBlur={(e) => setEmail(e.target.value)}
                                         type="email"
                                         className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         name='email'
                                         placeholder="Email address"
+                                        required
                                     />
                                 </div>
 
@@ -62,6 +108,7 @@ const Login = () => {
                                         className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         name='password'
                                         placeholder="Password"
+                                        required
                                     />
                                 </div>
 
@@ -72,11 +119,11 @@ const Login = () => {
                                             className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                                             id="exampleCheck2"
                                         />
-                                        <label className="form-check-label inline-block text-gray-800" for="exampleCheck2"
+                                        <label className="form-check-label inline-block text-gray-800" htmlFor="exampleCheck2"
                                         >Remember me</label
                                         >
                                     </div>
-                                    <a href="#!" className="text-gray-800">Forgot password?</a>
+                                    <Link onClick={() => forgotPassword()} className="text-gray-800">Forgot password?</Link>
                                 </div>
 
                                 <div className="text-center lg:text-left">

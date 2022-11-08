@@ -1,6 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from '../Firebase/firebase.config';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext()
 
@@ -27,7 +29,14 @@ const UserContext = ({ children }) => {
     //03. Log Out
     const logOut = () => {
         setLoading(true);
-        return signOut(auth)
+        return signOut(auth).then(() => {
+            toast.success("Sign-out successful")
+            
+          }).catch((error) => {
+            // An error happened.
+            toast.error(error.message)
+          });
+          
     }
     //04. update user 
     const updateUser = (name, photo) => {
@@ -44,19 +53,19 @@ const UserContext = ({ children }) => {
     const signInWithGoogle = () => {
         setLoading(true);
         return signInWithPopup(auth, provider)
-            .then((result) => {
-                const user = result.user;
-                console.log(user);
-            }).catch((error) => {
-                // Handle Errors here.
-                const errorMessage = error.message;
-                console.log(errorMessage);
-            });
     }
 
     //06. Change Password 
     const chagePassword = (email) =>{
-        return sendPasswordResetEmail(auth, email)
+        return sendPasswordResetEmail(auth, email).then(() => {
+            toast.success("Password reset email sent!") 
+            
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            toast.error(errorMessage)
+          });
     }
 
 

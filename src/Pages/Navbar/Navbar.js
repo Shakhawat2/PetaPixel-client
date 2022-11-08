@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Contexts/UserContext";
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
@@ -100,7 +100,7 @@ const Navbar = () => {
                                 <div className="dropdown dropdown-end">
                                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                         <div className="w-10 rounded-full">
-                                            <img src="https://placeimg.com/80/80/people" />
+                                            <img src={user?.photoURL ? user?.photoURL: "https://placeimg.com/80/80/people"} />
                                         </div>
                                     </label>
                                     <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
@@ -111,7 +111,7 @@ const Navbar = () => {
                                             </Link>
                                         </li>
                                         <li><Link>Settings</Link></li>
-                                        <li><Link >Logout</Link></li>
+                                        <li><Link onClick={() => logOut()}>Logout</Link></li>
                                     </ul>
                                 </div>
                             </li>
@@ -263,7 +263,7 @@ const Navbar = () => {
                                                         <div className="dropdown dropdown-end">
                                                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                                                 <div className="w-10 rounded-full flex">
-                                                                    <img src="https://placeimg.com/80/80/people" />
+                                                                    <img src={user?.photoURL ? user?.photoURL: "https://placeimg.com/80/80/people"} />
                                                                 </div>
                                                             </label>
                                                             <ul tabIndex={0} className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
@@ -274,7 +274,7 @@ const Navbar = () => {
                                                                     </Link>
                                                                 </li>
                                                                 <li><Link>Settings</Link></li>
-                                                                <li><Link >Logout</Link></li>
+                                                                <li><Link onClick={() => logOut()}>Logout</Link></li>
                                                             </ul>
                                                         </div>
                                                     </li>
