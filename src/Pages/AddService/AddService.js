@@ -2,9 +2,11 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Contexts/UserContext';
+import { useTitle } from '../../Hooks/UseTitle';
 
 const AddService = () => {
     const {user} = useContext(AuthContext);
+    useTitle('Add Service')
     const [service, setService] = useState({});
     const navigate = useNavigate();
     const handleAddService = (e) =>{
