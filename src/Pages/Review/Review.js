@@ -11,16 +11,13 @@ const Review = ({review}) => {
                     </a>
                 </div>
                 <div className="w-full mb-10">
-                    <div className="text-3xl text-indigo-500 text-left leading-tight h-3">
-                        “
-                    </div>
+                    
                     <p className="text-sm text-gray-600 dark:text-gray-100 text-center px-5">
                         {review?.description}
                     </p>
-                    <div className="text-3xl text-indigo-500 text-right leading-tight h-3 -mt-3">
-                        ”
-                    </div>
+                    
                 </div>
+                
                 <div className="w-full">
                     <p className="text-md text-indigo-500 font-bold text-center">
                         {review?.name}
@@ -50,6 +47,8 @@ const Review = ({review}) => {
                             {review?.rating}
                         </div>
                     </p>
+                    <small className='text-amber-600'>{`Review time : ${review?.hours} : ${review?.minutes} PM`}</small>
+
                 </div>
             </div>
         </div>

@@ -27,7 +27,7 @@ const SingleReview = ({ myreview, handleDelete , editDetails}) => {
             <td>
                 {myreview?.servicename}
                 <br />
-                <span className="badge whitespace-pre-wrap badge-ghost badge-sm">{myreview?.description}</span>
+                <span className="badge  badge-ghost badge-sm">{myreview?.description}</span>
             </td>
             <td>Rating : {myreview?.rating}</td>
             
