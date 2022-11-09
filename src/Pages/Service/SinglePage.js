@@ -155,7 +155,7 @@ const SinglePage = () => {
                                 {
                                     allReviews.length === 0
                                         ?
-                                        <p>No Review Here</p>
+                                        <p className='text-2xl font-bold '>No Review Here</p>
                                         :
                                         <div>
                                             {
