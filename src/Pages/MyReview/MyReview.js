@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate} from "react-router-dom";
+
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Contexts/UserContext';
 import SingleReview from './SingleReview';
@@ -6,6 +8,7 @@ import SingleReview from './SingleReview';
 const MyReview = () => {
     const { user } = useContext(AuthContext);
     const [myreviews, setMyReview] = useState([])
+    const navigate = useNavigate();
     useEffect(() => {
         fetch(`http://localhost:5000/myreview?email=${user?.email}`)
             .then(res => res.json())
@@ -13,7 +16,9 @@ const MyReview = () => {
             .catch(err => console.log(err));
     }, [user?.email]);
 
-
+    const editDetails = (id) =>{
+        navigate(`/myreview/${id}`)
+    }
     const handleDelete = ( id ) => {
         const proceed = window.confirm('Do you Deleted this review')
         if (proceed) {
@@ -45,7 +50,7 @@ const MyReview = () => {
                                 :
 
 
-                                myreviews.map(myreview => <SingleReview key={myreview._id} myreview={myreview} handleDelete={handleDelete}></SingleReview>)
+                                myreviews.map(myreview => <SingleReview key={myreview._id} myreview={myreview} handleDelete={handleDelete} editDetails={editDetails}></SingleReview>)
 
 
 

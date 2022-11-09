@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
+
 import { AuthContext } from '../../Contexts/UserContext';
 
-const SingleReview = ({myreview, handleDelete}) => {
-    const {user} = useContext(AuthContext);
+const SingleReview = ({ myreview, handleDelete , editDetails}) => {
+    const { user } = useContext(AuthContext);
     return (
         <tr className=''>
             <th>
@@ -29,8 +30,9 @@ const SingleReview = ({myreview, handleDelete}) => {
                 <span className="badge whitespace-pre-wrap badge-ghost badge-sm">{myreview?.description}</span>
             </td>
             <td>Rating : {myreview?.rating}</td>
-            <th>
-                <button className="btn btn-ghost btn-xs">Edit</button>
+            
+            <th onClick={() => editDetails(`${myreview?._id}`)}>
+                <button  className="btn btn-ghost btn-xs">Edit</button>
             </th>
         </tr>
     );
