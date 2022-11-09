@@ -43,6 +43,7 @@ const SinglePage = () => {
             year: fullYear,
             month: mnth,
             date: days,
+            servicename : service_name
 
         }
         //Post Review
