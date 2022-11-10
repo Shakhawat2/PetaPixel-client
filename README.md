@@ -9,7 +9,7 @@ PhotoGrapher
 
 ## Live Website Link.
 
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [https://assignment-11-for-photographer.web.app/](https://assignment-11-for-photographer.web.app/) to view it in your browser.
 
 ## Some Features About this Website
 1. Using React-router-dom.
@@ -20,7 +20,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 6. Using firebase
 7. Using jwt
 8. Using node, express, mongodb etc.
-9. and some other elements
+9. and using some other elements
 
 
 
