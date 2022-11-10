@@ -1,10 +1,15 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
 import { AuthContext } from '../../Contexts/UserContext';
 import { useTitle } from '../../Hooks/UseTitle';
 
 const Profile = () => {
     const { user } = useContext(AuthContext)
     useTitle("Profile")
+
+    const friend = () =>{
+        toast.success('Friend Request Send')
+    }
     return (
 
         <div class="shadow-lg rounded-2xl w-[50%] p-4 mt-5 mx-auto bg-white dark:bg-gray-800">
@@ -47,7 +52,7 @@ const Profile = () => {
                 <button type="button" class="w-1/2 px-4 py-2 text-base border rounded-lg text-grey-500 bg-white hover:bg-gray-200 ">
                     Chat
                 </button>
-                <button type="button" class="w-1/2 px-4 py-2 text-base border rounded-lg text-white bg-indigo-500 hover:bg-indigo-700 ">
+                <button onClick={() => friend()} type="button" class="w-1/2 px-4 py-2 text-base border rounded-lg text-white bg-indigo-500 hover:bg-indigo-700 ">
                     Add friend
                 </button>
             </div>

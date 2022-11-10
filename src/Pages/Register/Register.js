@@ -27,7 +27,7 @@ const Register = () => {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                updateUser(name, photo);
+                
                 const currentUser = {
                     email: user.email
                 }
@@ -41,6 +41,7 @@ const Register = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
+                        updateUser(name, photo);
                         localStorage.setItem('token', data.token)
                     })
                     .catch(err => console.log(err))
