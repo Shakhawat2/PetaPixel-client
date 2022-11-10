@@ -29,7 +29,7 @@ const Navbar = () => {
                 >
                     <img src="https://i.ibb.co/8rL8kpb/flytographer-badge-blue.png" className="w-8 text-deep-purple-accent-400" alt="" />
                     <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                        Photographer
+                    Wedding Photographer
                     </span>
                 </Link>
                 <ul className="flex items-center hidden space-x-8 lg:flex">
@@ -175,7 +175,7 @@ const Navbar = () => {
                                         >
                                             <img src="https://i.ibb.co/8rL8kpb/flytographer-badge-blue.png" className="w-8 text-deep-purple-accent-400" alt="" />
                                             <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                                                Flytographer
+                                            Wedding Photographer
                                             </span>
                                         </Link>
                                     </div>

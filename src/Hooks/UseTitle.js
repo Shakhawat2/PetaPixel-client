@@ -2,6 +2,6 @@ const { useEffect } = require("react")
 
 export const useTitle = title =>{
     useEffect(() =>{
-        document.title = `${title} - PhotoGrapher`;
+        document.title = `${title} - Wedding PhotoGrapher`;
     }, [title])
 }
