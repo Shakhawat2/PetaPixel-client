@@ -6,7 +6,7 @@ const SingleService3 = ({ service }) => {
 
     return (
         <div className="overflow-hidden shadow-lg rounded-lg h-90 w-60 md:w-80 cursor-pointer m-auto">
-            <Link className="w-full block h-full">
+            <div className="w-full block h-full">
                 <PhotoProvider>
                     <PhotoView src={service?.service_photo}>
                         <img alt="blog photo" src={service?.service_photo} className="max-h-40 w-full object-cover" />
@@ -25,7 +25,7 @@ const SingleService3 = ({ service }) => {
                         </Link>
                     </div>
                 </div>
-            </Link>
+            </div>
         </div>
     );
 };

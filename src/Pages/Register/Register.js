@@ -7,7 +7,7 @@ import { useTitle } from '../../Hooks/UseTitle';
 import { toast } from 'react-toastify';
 
 const Register = () => {
-    const { createUserWithEmail, updateUser , signInWithGoogle} = useContext(AuthContext);
+    const { createUserWithEmail, updateUser, signInWithGoogle } = useContext(AuthContext);
     useTitle("Register")
     const navigate = useNavigate();
     let location = useLocation();
@@ -28,6 +28,22 @@ const Register = () => {
                 // Signed in 
                 const user = userCredential.user;
                 updateUser(name, photo);
+                const currentUser = {
+                    email: user.email
+                }
+                //get jwt token
+                fetch('https://assignment-11-server-rho.vercel.app/jwt', {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('token', data.token)
+                    })
+                    .catch(err => console.log(err))
                 toast('Registered Successful');
                 navigate(from, { replace: true });
                 form.reset();
@@ -41,16 +57,32 @@ const Register = () => {
 
     const handleGoogle = () => {
         signInWithGoogle()
-        .then((result) => {
-            const user = result.user;
-            toast.success("Successfully Log In");
-            navigate(from, { replace: true });
-        }).catch((error) => {
-            // Handle Errors here.
-            const errorMessage = error.message;
-            toast.error(errorMessage);
-        });
-       
+            .then((result) => {
+                const user = result.user;
+                const currentUser = {
+                    email: user.email
+                }
+                //get jwt token
+                fetch('https://assignment-11-server-rho.vercel.app/jwt', {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('token', data.token)
+                    })
+                    .catch(err => console.log(err))
+                toast.success("Successfully Log In");
+                navigate(from, { replace: true });
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorMessage = error.message;
+                toast.error(errorMessage);
+            });
+
     }
     return (
         <div >
@@ -133,7 +165,7 @@ const Register = () => {
                                         <input
                                             onClick={() => setAccept(!accept)}
                                             type="checkbox"
-                                            className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"       
+                                            className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
                                         />
                                         <label className="form-check-label inline-block text-gray-800" htmlFor="exampleCheck2"
                                         >Accept Terms & Conditions</label
@@ -147,7 +179,7 @@ const Register = () => {
                                         className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                                         disabled={accept}
                                     >
-                                        {accept ? "Disabled" : "Register"} 
+                                        {accept ? "Disabled" : "Register"}
                                     </button>
                                     <p className="text-sm font-semibold mt-2 pt-1 mb-0">
                                         Already have an account?
