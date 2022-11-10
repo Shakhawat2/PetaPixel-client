@@ -38,8 +38,7 @@ const Team = () => {
                     our talented team of professionals
                 </h2>
                 <p className="text-base text-gray-700 md:text-lg">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                    accusantium doloremque rem aperiam, eaque ipsa quae.
+                    Photography is the art, application, and practice of creating durable images by recording light, either electronically by means of an image sensor
                 </p>
             </div>
             <div className="grid gap-10 row-gap-8 mx-auto sm:row-gap-10 lg:max-w-screen-lg sm:grid-cols-2 lg:grid-cols-3">

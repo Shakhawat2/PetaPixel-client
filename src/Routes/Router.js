@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
             {
                 path : '/myreview/:id',
                 loader : ({params}) => fetch(`https://assignment-11-server-rho.vercel.app/myreview/${params.id}`),
-                element : <EditReview></EditReview>
+                element : <PrivateRoutes><EditReview></EditReview></PrivateRoutes>
             },
             {
                 path : 'services/:id',
@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
             },
             {
                path : 'profile',
-               element : <Profile></Profile> 
+               element : <PrivateRoutes><Profile></Profile></PrivateRoutes> 
             },
             {
                path : 'register',
