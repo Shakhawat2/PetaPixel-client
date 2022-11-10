@@ -23,7 +23,7 @@ const AddService = () => {
         .then(data => {
             if(data?.insertedId){
                 toast.success('Added a new Service')
-                navigate("/services")
+                navigate("/");
                 e.target.reset();
             }
         })
