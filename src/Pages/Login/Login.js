@@ -24,7 +24,23 @@ const Login = () => {
         logIn(email, password)
             .then((userCredential) => {
                 // Signed in 
-                const user = userCredential.user;
+                const users = userCredential.user;
+                const currentUser = {
+                    email: users.email
+                }
+                //get jwt token
+                fetch('http://localhost:5000/jwt', {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('token', data.token)
+                    })
+                    .catch(err => console.log(err))
                 toast.success("Log In Successfully");
                 navigate(from, { replace: true });
                 form.reset();
@@ -40,8 +56,25 @@ const Login = () => {
         signInWithGoogle()
             .then((result) => {
                 const user = result.user;
+                const currentUser = {
+                    email: user.email
+                }
+                //get jwt token
+                fetch('http://localhost:5000/jwt', {
+                    method: 'post',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('token', data.token)
+                    })
+                    .catch(err => console.log(err))
                 toast.success("Successfully Log In");
                 navigate(from, { replace: true });
+
             }).catch((error) => {
                 // Handle Errors here.
                 const errorMessage = error.message;
@@ -56,7 +89,7 @@ const Login = () => {
 
     return (
         <div>
-            <section className="h-screen">
+            <section className="h-full">
                 <div className="px-6 h-full text-gray-800">
                     <div
                         className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6"

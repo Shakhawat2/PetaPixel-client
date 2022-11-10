@@ -8,7 +8,7 @@ import SingleService3 from './SingleService3';
 
 const AllService = () => {
     const { loading } = useContext(AuthContext)
-    useTitle('All Services')
+    useTitle('Services of')
     // const { services, count } = useLoaderData();
     const [services, setServices] = useState([])
     const [count, setCount] = useState(0);

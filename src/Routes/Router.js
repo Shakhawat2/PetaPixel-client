@@ -7,6 +7,7 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import EditReview from "../Pages/MyReview/EditReview";
 import MyReview from "../Pages/MyReview/MyReview";
+import Profile from "../Pages/Profile/Profile";
 import Register from "../Pages/Register/Register";
 import AllService from "../Pages/Service/AllService";
 import SinglePage from "../Pages/Service/SinglePage";
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
             {
                path : 'signin',
                element : <Login></Login> 
+            },
+            {
+               path : 'profile',
+               element : <Profile></Profile> 
             },
             {
                path : 'register',

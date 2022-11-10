@@ -16,6 +16,7 @@ const SinglePage = () => {
     const hr = date.getHours();
     const min = date.getMinutes();
     const time = `${hr} : ${min}`;
+    const Time = date.getTime();
 
     const [review, setReview] = useState({});
     const [allReviews, setAllReviews] = useState([]);
@@ -37,6 +38,7 @@ const SinglePage = () => {
             review_id: _id,
             photo: user?.photoURL,
             name: user?.displayName,
+            time : Time,
             hours: hr,
             minutes: min,
             review_time: time,

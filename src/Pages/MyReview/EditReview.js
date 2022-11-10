@@ -9,6 +9,7 @@ const EditReview = () => {
     const review = useLoaderData();
     const navigate = useNavigate();
     const date = new Date();
+    const Time = date.getTime();
     const yr = date.getFullYear();
     const mnth = date.getMonth();
     const days = date.getDate();
@@ -26,6 +27,7 @@ const EditReview = () => {
             review_id: review?.review_id,
             photo: user?.photoURL,
             name: user?.displayName,
+            time : Time,
             hours: hr,
             minutes: min,
             review_time: time,
