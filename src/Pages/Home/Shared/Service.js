@@ -5,7 +5,7 @@ import SingleService3 from '../../Service/SingleService3';
 const Service = () => {
     const [services, setService] = useState([]);
     useEffect(() =>{
-        fetch(`http://localhost:5000/3services`)
+        fetch(`https://assignment-11-server-rho.vercel.app/3services`)
         .then(res => res.json())
         .then(data => setService(data))
         .catch(err => console.log(err))

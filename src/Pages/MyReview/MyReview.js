@@ -8,18 +8,18 @@ import Loader from '../Loader/Loader';
 import SingleReview from './SingleReview';
 
 const MyReview = () => {
-    const { user, loading , logOut} = useContext(AuthContext);
+    const { user, loading, logOut } = useContext(AuthContext);
     const [myreviews, setMyReview] = useState([])
     const navigate = useNavigate();
     useTitle('My Review')
     useEffect(() => {
-        fetch(`http://localhost:5000/myreview?email=${user?.email}`, {
-            headers : {
-                authorization : `Bearer ${localStorage.getItem('token')}`
+        fetch(`https://assignment-11-server-rho.vercel.app/myreview?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`
             }
         })
             .then(res => {
-                if(res.status === 401 || res.status === 403){
+                if (res.status === 401 || res.status === 403) {
                     logOut();
                 }
                 return res.json()
@@ -34,15 +34,24 @@ const MyReview = () => {
     const handleDelete = (id) => {
         const proceed = window.confirm('Do you Deleted this review')
         if (proceed) {
-            fetch(`http://localhost:5000/myreview/${id}`, {
+            fetch(`https://assignment-11-server-rho.vercel.app/myreview/${id}`, {
                 method: 'delete'
             })
                 .then(res => res.json())
                 .then(data => {
                     if (data.deletedCount > 0) {
                         toast.success('Deleted Successfully');
-                        fetch(`http://localhost:5000/myreview?email=${user?.email}`)
-                            .then(res => res.json())
+                        fetch(`https://assignment-11-server-rho.vercel.app/myreview?email=${user?.email}`, {
+                            headers: {
+                                authorization: `Bearer ${localStorage.getItem('token')}`
+                            }
+                        })
+                            .then(res => {
+                                if (res.status === 401 || res.status === 403) {
+                                    logOut();
+                                }
+                                return res.json()
+                            })
                             .then(data => setMyReview(data))
                             .catch(err => console.log(err));
                     }

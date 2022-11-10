@@ -37,12 +37,12 @@ export const router = createBrowserRouter([
             },
             {
                 path : '/myreview/:id',
-                loader : ({params}) => fetch(`http://localhost:5000/myreview/${params.id}`),
+                loader : ({params}) => fetch(`https://assignment-11-server-rho.vercel.app/myreview/${params.id}`),
                 element : <EditReview></EditReview>
             },
             {
                 path : 'services/:id',
-                loader : ({params}) => fetch(`http://localhost:5000/services/${params.id}`),
+                loader : ({params}) => fetch(`https://assignment-11-server-rho.vercel.app/services/${params.id}`),
                 element : <SinglePage></SinglePage>
             },
             {

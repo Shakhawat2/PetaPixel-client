@@ -12,7 +12,7 @@ const AddService = () => {
     const handleAddService = (e) =>{
         e.preventDefault();
         
-        fetch("http://localhost:5000/services", {
+        fetch("https://assignment-11-server-rho.vercel.app/services", {
             method : "post",
             headers : {
                 'content-type' : 'application/json'

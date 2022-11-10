@@ -22,7 +22,7 @@ const SinglePage = () => {
     const [allReviews, setAllReviews] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/review?id=${_id}`)
+        fetch(`https://assignment-11-server-rho.vercel.app/review?id=${_id}`)
             .then(res => res.json())
             .then(data => setAllReviews(data))
             .catch(err => console.log(err))
@@ -49,7 +49,7 @@ const SinglePage = () => {
 
         }
         //Post Review
-        fetch("http://localhost:5000/review", {
+        fetch("https://assignment-11-server-rho.vercel.app/review", {
             method: 'post',
             headers: {
                 'content-type': 'application/json'
@@ -59,7 +59,7 @@ const SinglePage = () => {
             .then(res => res.json())
             .then(data => {
                 if (data?.insertedId) {
-                    fetch(`http://localhost:5000/review?id=${_id}`)
+                    fetch(`https://assignment-11-server-rho.vercel.app/review?id=${_id}`)
                         .then(res => res.json())
                         .then(data => setAllReviews(data))
                         .catch(err => console.log(err))

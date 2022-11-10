@@ -22,6 +22,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 8. Using node, express, mongodb etc.
 9. and some other elements
 
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 

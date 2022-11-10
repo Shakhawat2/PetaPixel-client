@@ -29,7 +29,7 @@ const Login = () => {
                     email: users.email
                 }
                 //get jwt token
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://assignment-11-server-rho.vercel.app/jwt', {
                     method: 'post',
                     headers: {
                         'content-type': 'application/json'
@@ -60,7 +60,7 @@ const Login = () => {
                     email: user.email
                 }
                 //get jwt token
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://assignment-11-server-rho.vercel.app/jwt', {
                     method: 'post',
                     headers: {
                         'content-type': 'application/json'

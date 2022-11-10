@@ -38,7 +38,7 @@ const EditReview = () => {
 
         }
 
-        fetch(`http://localhost:5000/updatereview/${review?._id}`, {
+        fetch(`https://assignment-11-server-rho.vercel.app/updatereview/${review?._id}`, {
             method : 'put',
             headers : {
                 'content-type' : 'application/json'
